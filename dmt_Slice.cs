@@ -38,22 +38,26 @@ namespace DMT_Icon.DMT_Slice
 
         }
 
-        public int addLayer(string layerName)
+        public void addLayer(string layerName)
         {
            
             dmt_Layer tLayer=  this.gameObject.AddComponent<dmt_Layer>();
             tLayer.set(layerName, axis);
             layerList.Add(tLayer);
+            
+            // Layer 0 als Default
+            setLayerActive(0);
            
-            steps = layerList[layerList.Count-1].steps;
-            return steps;
+           
+            
 
         }
 
-        public int setLayerActive(int layerToActivate)
+        public void setLayerActive(int layerToActivate)
         {
             activeLayer = layerToActivate;
-            return layerList[activeLayer].steps;
+            steps = layerList[layerList.Count-1].steps;
+            
         }
 
 
@@ -86,7 +90,7 @@ namespace DMT_Icon.DMT_Slice
                 // passendes Bild finden
                 var i = Mathf.RoundToInt(Value * (steps - 1));
                 if (debug) text.text = Value.ToString() + "\n" + i.ToString();
-                sliceObject.GetComponent<Renderer>().material.mainTexture = layerList[0].Images[i];
+                sliceObject.GetComponent<Renderer>().material.mainTexture = layerList[activeLayer].Images[i];
             }
             else sliceObject.gameObject.SetActive(false);
             
