@@ -56,10 +56,6 @@ namespace DMT_Icon.DMT_Slice
             return layerList[activeLayer].steps;
         }
 
-        void Update()
-        {
-
-        }
 
         public void showSlice(Vector3 Val, bool debug = false)
         {
@@ -80,11 +76,22 @@ namespace DMT_Icon.DMT_Slice
                 default: break;
             }
 
-            sliceObject.localPosition = Origin + Val * 10f; //planes sind 10 Einheiten groß
-
-            var i = Mathf.RoundToInt(Value * (steps - 1));
-            if (debug) text.text = Value.ToString() + "\n" + i.ToString();
-            sliceObject.GetComponent<Renderer>().material.mainTexture = layerList[0].Images[i];
+            // Slice nicht im Kopf (kleiner 0  oder grösser 1 => sliceObject nicht darstellen
+            if (Value > 0 && Value <= 1f)
+            {
+                sliceObject.gameObject.SetActive(true);
+                //planes sind ursprünglich 10 Einheiten groß
+                sliceObject.localPosition = Origin + Val * 10f; 
+                
+                // passendes Bild finden
+                var i = Mathf.RoundToInt(Value * (steps - 1));
+                if (debug) text.text = Value.ToString() + "\n" + i.ToString();
+                sliceObject.GetComponent<Renderer>().material.mainTexture = layerList[0].Images[i];
+            }
+            else sliceObject.gameObject.SetActive(false);
+            
+            
+            
 
         }
     }
