@@ -63,6 +63,7 @@ namespace DMT_Icon.DMT_Slice
 
         public void showSlice(Vector3 Val, bool debug = false)
         {
+            Vector3 p = Val;
             switch (axis)
             {
                 case AXIS.X:
@@ -81,7 +82,7 @@ namespace DMT_Icon.DMT_Slice
             }
 
             // Slice nicht im Kopf (kleiner 0  oder grösser 1 => sliceObject nicht darstellen
-            if (Value > 0 && Value <= 1f)
+            if (p.x > 0 && p.y > 0 &&p.z > 0 && p.x <= 1f && p.y <= 1f && p.z <= 1f)
             {
                 sliceObject.gameObject.SetActive(true);
                 //planes sind ursprünglich 10 Einheiten groß

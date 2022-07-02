@@ -46,4 +46,10 @@ berechnet passendes Bild
 
 # TODOS
 
+beim Laden der Layer die Grössen der Bilder auslesen
+=> daraus die Skalierung der Slices berechnen 
+Problem: beim importern werden Bilder skaliert (512/1024)
+Originaldaten eingeben!
+
+646 x 916 
 
