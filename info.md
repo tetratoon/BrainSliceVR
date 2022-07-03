@@ -51,5 +51,7 @@ beim Laden der Layer die Grössen der Bilder auslesen
 Problem: beim importern werden Bilder skaliert (512/1024)
 Originaldaten eingeben!
 
-646 x 916 
+646 x 916 beginnen aber nicht am Rand
+
+=> besser Kalibrieren?
 
