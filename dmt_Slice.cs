@@ -40,9 +40,10 @@ namespace DMT_Icon.DMT_Slice
 
         public void addLayer(string layerName)
         {
-           
-            dmt_Layer tLayer=  this.gameObject.AddComponent<dmt_Layer>();
-            tLayer.set(layerName, axis);
+
+            Debug.Log("addlayer");
+            dmt_Layer tLayer = new dmt_Layer();
+            //tLayer.set(layerName);
             layerList.Add(tLayer);
             
             // Layer 0 als Default
@@ -56,12 +57,16 @@ namespace DMT_Icon.DMT_Slice
         public void setLayerActive(int layerToActivate)
         {
             activeLayer = layerToActivate;
-            steps = layerList[layerList.Count-1].steps;
+            //steps = layerList[layerList.Count-1].steps;
             
         }
 
+        public void showSlice(Texture2D texture)
+        {
+            sliceObject.GetComponent<Renderer>().material.mainTexture = texture;
+        }
 
-        public void showSlice(Vector3 Val, bool debug = false)
+        public void showSlice_old(Vector3 Val, bool debug = false)
         {
             Vector3 p = Val;
             switch (axis)
@@ -69,14 +74,17 @@ namespace DMT_Icon.DMT_Slice
                 case AXIS.X:
                     Value = Val.x;
                     Val = new Vector3(Val.x, 0f, 0f);
+                    //steps = layerList[activeLayer].sliceX.steps;
                     break;
                 case AXIS.Y:
                     Value = Val.y;
                     Val = new Vector3(0f, Val.y, 0f);
+                    //steps = layerList[activeLayer].sliceY.steps;
                     break;
                 case AXIS.Z:
                     Value = Val.z;
                     Val = new Vector3(0f, Val.z, 0f);
+                    //steps = layerList[activeLayer].sliceZ.steps;
                     break;
                 default: break;
             }
@@ -91,7 +99,21 @@ namespace DMT_Icon.DMT_Slice
                 // passendes Bild finden
                 var i = Mathf.RoundToInt(Value * (steps - 1));
                 if (debug) text.text = Value.ToString() + "\n" + i.ToString();
-                sliceObject.GetComponent<Renderer>().material.mainTexture = layerList[activeLayer].Images[i];
+                switch (axis)
+                {
+                    case AXIS.X:
+                        //sliceObject.GetComponent<Renderer>().material.mainTexture =
+                            //layerList[activeLayer].sliceX.Images[i];
+                        break;
+                    case AXIS.Y:
+                        //sliceObject.GetComponent<Renderer>().material.mainTexture =
+                            //layerList[activeLayer].sliceY.Images[i];
+                        break;
+                    case AXIS.Z:
+                        //sliceObject.GetComponent<Renderer>().material.mainTexture =
+                            //layerList[activeLayer].sliceZ.Images[i];
+                        break;
+                }
             }
             else sliceObject.gameObject.SetActive(false);
             
