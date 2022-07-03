@@ -61,12 +61,19 @@ namespace DMT_Icon.DMT_Slice
             
         }
 
-        public void showSlice(Texture2D texture)
+        public void showSlice(Texture2D texture, Vector3 v)
         {
-            sliceObject.GetComponent<Renderer>().material.mainTexture = texture;
+            Debug.Log(v.ToString());
+            if (v.x >= 0 && v.y >= 0 && v.z >= 0 && v.x <= 1f && v.y <= 1f && v.z <= 1f)
+            {
+                sliceObject.GetComponent<Renderer>().material.mainTexture = texture;
+                sliceObject.gameObject.SetActive(true);
+                //planes sind ursprünglich 10 Einheiten groß
+                sliceObject.localPosition = Origin + v * 10f;
+            }
         }
 
-        public void showSlice_old(Vector3 Val, bool debug = false)
+        public void showSlice_old(Vector3 Val,  bool debug = false)
         {
             Vector3 p = Val;
             switch (axis)

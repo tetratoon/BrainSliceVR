@@ -92,7 +92,7 @@ namespace DMT_Icon.DMT_Slice
         {
             DebugInputPoint = DebugCenter.position;
             var v = CalculateRelativePosition(DebugInputPoint);
-Debug.Log("activeLayer: "+activeLayer);
+//Debug.Log("activeLayer: "+activeLayer);
             LayerList[activeLayer].updateSlices(v);
             // foreach (var slice in sliceList)
             // {
