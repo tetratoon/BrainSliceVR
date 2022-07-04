@@ -17,16 +17,16 @@ namespace DMT_Icon.DMT_Slice
         public List<Texture2D> ImagesZ;
         //public int steps = 0;
         
-        public List<Texture2D> Images;
+        //public List<Texture2D> Images;
         
         
         //die drei Slice-objekte
         private dmt_Slice sliceX, sliceY, sliceZ;
-        private dmt_Slice[] sliceList;
+        //private dmt_Slice[] sliceList;
 
         void Start()
         {
-            Images = new List<Texture2D>();
+            //Images = new List<Texture2D>();
             
            
         }
@@ -105,8 +105,7 @@ namespace DMT_Icon.DMT_Slice
             //var i = Mathf.RoundToInt(v.x * (stepsX - 1));
             
             //Debug.Log("updateSlice");
-            sliceX.showSlice(ImagesX[Mathf.RoundToInt(v.x * (stepsX - 1))],valx );
-            
+            sliceX.showSlice(ImagesX[Mathf.RoundToInt(v.x * (stepsX - 1))], valx );
             sliceY.showSlice(ImagesY[Mathf.RoundToInt(v.y * (stepsX - 1))], valy);
             sliceZ.showSlice(ImagesZ[Mathf.RoundToInt(v.z * (stepsX - 1))], valz);
         }

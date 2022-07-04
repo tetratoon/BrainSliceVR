@@ -13,33 +13,41 @@ brauchen wir noch Unterordnung (Fall/case) oder hat Layer Personen/Fall-Id, Datu
 
 ### dmt_HeadController
 Start
-+ initialisiert 3 Slices => in Slicelist gespeichert  
++ headpos
++ Layerlist  mit >Layer (new) 
+  + init mit  
+  >Layer>setLayer()
 
 Update
-+ ruft Slices auf ShowSlice
++ ruft aktiven >Layer auf: updateSlices(v)
+  + mit dem normalisierten Punkt v im Kopf aus Eingabe
 
 ### dmt_Layer
-set  
-=>
-lädt die Bilder eines Layers in eine Liste 
+für jede Slice eine Liste von Bildern ImagesX, ImagesY, ImagesZ
+drei Slices 
 
-### dmt_SliceController
-=> noch nicht verwendet
-Verwaltung der dargestellten Layer?!
++ setLayer  
+  >setslice()
+
++ setSlice
+  + lädt die Bilder eines Layers in die drei Listen
+  + berechnet steps für jeden Layer und Slice
+
++ updateSlice 
+  + >slice.showSlice  zeigt das richtige Bild in jedem Slice an
+
 
 
 ### dmt_Slices
-addLayer  
-=> 
 
-setLayerActive   
++ setLayerActive   
 => (noch nicht verwendet)
 
-showSlice  
-=> dmt_headcontroller.update()
-für jede Slice aufgerufen  
-berechnet passendes Bild  
-ändert texture und versteckt sliceObject, wenn nicht im Kopf
++ showSlice  
+  + > dmt_headcontroller.update()für jede Slice aufgerufen   
+    berechnet passendes Bild  
+    ändert texture und versteckt sliceObject, wenn nicht im Kopf
+    > ändert Position des Sliceobjekts
 
 
 
