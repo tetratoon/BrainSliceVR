@@ -50,6 +50,18 @@ drei Slices
     > ändert Position des Sliceobjekts
 
 
+## ACHTUNG
+in der SliceZ ist tiling x verkehrt (-1)  
+alle anderen lassen sich mit tiling und offset einstellen   
+=> wie speichern?
+
+## kalibrieren
++ Einheitsquader anzeigen
++ input auf max/max/max stellen
++ alle drei offsets so einstellen, dass alle hinten/unten/links anstehen
++ dann tiling so einstellen, dass sie das andere Ende auch berühren
++ => Wert permanent speichern! (Gamesettings?)
+
 
 
 # TODOS

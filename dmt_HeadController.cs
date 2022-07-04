@@ -36,9 +36,9 @@ namespace DMT_Icon.DMT_Slice
             {
                 var tLayer = new dmt_Layer();
                 tLayer.setLayer(LayerNames[i]);
-                Debug.Log("new layer: " + tLayer.name + "   " + i);
+                Debug.Log("new layer: " + tLayer.settings.name + "   " + i);
                 LayerList.Add(tLayer);
-                Debug.Log("LayerList: " + LayerList.ToString());
+                Debug.Log("LayerList: " + LayerList[LayerList.Count-1].settings.name);
 
             }
         }
@@ -50,7 +50,7 @@ namespace DMT_Icon.DMT_Slice
         {
             DebugInputPoint = DebugCenter.position;
             var v = CalculateRelativePosition(DebugInputPoint);
-            //Debug.Log("activeLayer: "+activeLayer);
+            Debug.Log("activeLayer: "+activeLayer+"  v: "+ v.ToString());
             LayerList[activeLayer].updateSlices(v);
             
 
