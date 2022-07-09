@@ -24,7 +24,7 @@ namespace DMT_Icon.DMT_Slice
       
 
        
-        public void setLayer(string _name)
+        public void initLayer(string _name)
         {
             settings = new LayerSettings();
             settings.name = _name;
@@ -35,51 +35,70 @@ namespace DMT_Icon.DMT_Slice
             Debug.Log("setLayer: ");
             //this.name = _name;
             
-            setSlice(dmt_Slice.AXIS.X, ImagesX, ref settings.xSteps);
-            setSlice(dmt_Slice.AXIS.Y, ImagesY,ref settings.ySteps);
-            setSlice(dmt_Slice.AXIS.Z,ImagesZ, ref settings.zSteps);
+            setSlice(dmt_Slice.AXIS.COR, ImagesX, ref settings.xSteps,settings.reverseOrderX);
+            setSlice(dmt_Slice.AXIS.AXIAL, ImagesY,ref settings.ySteps,settings.reverseOrderY);
+            setSlice(dmt_Slice.AXIS.SAG,ImagesZ, ref settings.zSteps,settings.reverseOrderZ);
             
             sliceX = GameObject.FindWithTag("sliceX").GetComponent<dmt_Slice>();
-            sliceX.axis = dmt_Slice.AXIS.X;
+            sliceX.axis = dmt_Slice.AXIS.COR;
+            //sliceX.sliceObject.Rotate(settings.rotateSliceX,0f,0f);
+            Vector3 t = sliceX.sliceObject.localEulerAngles;
+            t.x+=settings.rotateSliceX;
+            sliceX.sliceObject.localEulerAngles = t;
+            sliceX.sliceObject.transform.localScale =settings.flipX;
+            
             sliceY = GameObject.FindWithTag("sliceY").GetComponent<dmt_Slice>();
-            sliceY.axis = dmt_Slice.AXIS.Y;
+            sliceY.axis = dmt_Slice.AXIS.AXIAL;
+            //sliceY.sliceObject.Rotate(settings.rotateSliceY,0f,0f);
+            t = sliceY.sliceObject.localEulerAngles;
+            t.x+=settings.rotateSliceY;
+            sliceY.sliceObject.localEulerAngles = t;
+            sliceY.sliceObject.transform.localScale =settings.flipY;
+            
             sliceZ = GameObject.FindWithTag("sliceZ").GetComponent<dmt_Slice>();
-            sliceZ.axis = dmt_Slice.AXIS.Z;
-          
+            sliceZ.axis = dmt_Slice.AXIS.SAG;
+            //sliceZ.sliceObject.Rotate(0f,settings.rotateSliceZ,0f);
+            t = sliceZ.sliceObject.localEulerAngles;
+            t.y+=settings.rotateSliceZ;
+            sliceZ.sliceObject.localEulerAngles = t;
+            sliceZ.sliceObject.transform.localScale =settings.flipZ;
         }
         
         
         
-        private void setSlice(dmt_Slice.AXIS axis,List<Texture2D> _Images, ref int steps)
+        private void setSlice(dmt_Slice.AXIS axis,List<Texture2D> _Images, ref int steps, bool reverseOrder)
         {
             
             // bezeichnungen *MÜSSEN* mit 0 starten 
             int i = 0;
             bool isEnd = false;
+            Debug.Log(settings.name+"_1_/"+axis+"/"+i);
             do
             {
                 if (Resources.Load<Texture2D>(settings.name+"/"+axis+"/"+i) == null)
                 {
-                    Debug.Log(settings.name+"/"+axis+"/"+i);
+                    Debug.Log(settings.name+"_2_/"+axis+"/"+i);
                     isEnd = true;
                     break;
                 }
-              
-                _Images.Add(Resources.Load<Texture2D>(settings.name+"/"+axis+"/"+i));
+
+                if (reverseOrder)
+                    _Images.Insert(0,Resources.Load<Texture2D>(settings.name+"/"+axis+"/"+i));
+                else _Images.Add(Resources.Load<Texture2D>(settings.name+"/"+axis+"/"+i));
                
-                i++;
+                i ++;
             }while (!isEnd);
 
             switch (axis)
             {
-                case dmt_Slice.AXIS.X: 
-                    settings.xSteps = i;
+                case dmt_Slice.AXIS.COR:
+                    settings.xSteps = _Images.Count;// i;
                     break;
-                case dmt_Slice.AXIS.Y: 
-                    settings.ySteps = i;
+                case dmt_Slice.AXIS.AXIAL: 
+                    settings.ySteps = _Images.Count;// i;
                     break;
-                case dmt_Slice.AXIS.Z: 
-                    settings.zSteps = i;
+                case dmt_Slice.AXIS.SAG: 
+                    settings.zSteps = _Images.Count;// i;
                     break;
             }
             //steps = i;
@@ -111,7 +130,7 @@ namespace DMT_Icon.DMT_Slice
             
             if(v.z >=0 && v.z <=1f )
             {
-                Debug.Log("frame: "+ Mathf.RoundToInt(v.z * (settings.zSteps - 1)));
+                //Debug.Log("frame: "+ Mathf.RoundToInt(v.z * (settings.zSteps - 1)));
                 sliceZ.showSlice(ImagesZ[Mathf.RoundToInt(v.z * (settings.zSteps - 1))], valz);
                 
             }   else if(v.z <0  || v.z >1f) sliceZ.hideSlice();
@@ -119,17 +138,29 @@ namespace DMT_Icon.DMT_Slice
             
         }
     }
-    public  struct LayerSettings
+    
+    /// <summary>
+    /// die Werte sollen dann über eine externe datei abgerufen werden.
+    /// </summary>
+    public  class LayerSettings
     {
         public string name;
-        public float xOffset;
-        public float xWidth;
+        public bool reverseOrderX =true ;
+        public Vector3 flipX =new Vector3(-1,1,-1) ; //(x und z)
+        public int rotateSliceX = -90;
+       
         public int xSteps;
-        public float yOffset;
-        public float yWidth;
+        
+        public bool reverseOrderY=false ;
+        public Vector3 flipY =new Vector3(-1,1,1) ;
+        public int rotateSliceY = 0;
+       
         public int ySteps;
-        public float zOffset;
-        public float zWidth;
+        
+        public bool reverseOrderZ=true ;
+        public Vector3 flipZ =new Vector3(-1,1,-1) ;
+        public int rotateSliceZ = 90;
+        
         public int zSteps;
     }
 }

@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using DMT_Icon.DMT_Slice;
 using UnityEngine;
 
-public class dmt_SliceController : MonoBehaviour
+namespace DMT_Icon.DMT_Slice
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class dmt_SliceController : MonoBehaviour
     {
-        
+        public dmt_Slice AXIAL, SAGITAL, CORONAL;
+
+        public Transform HEAD;
+        // Start is called before the first frame update
+        void Start()
+        {
+            
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            
+        }
     }
 }

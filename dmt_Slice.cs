@@ -15,15 +15,16 @@ namespace DMT_Icon.DMT_Slice
         // Anzahl der Bilder
         private int steps = 0;
        
+        
 
 
         public AXIS axis;
 
         public enum AXIS
         {
-            X,
-            Y,
-            Z
+            COR =0,
+            AXIAL =1,
+            SAG =2
         }
 
         void Start()
