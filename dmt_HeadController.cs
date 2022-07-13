@@ -12,10 +12,10 @@ namespace DMT_Icon.DMT_Slice
         
        
         //breite zu höhe
-        public float AspectRatio = 0.5f;
-
-       
+        public float AspectRatio = 1f;
         public Transform Head;
+        
+        
         //DEBUG
         public bool debug = true;
         public Transform DebugCenter;
@@ -46,7 +46,7 @@ namespace DMT_Icon.DMT_Slice
             
             LayerList = new List<dmt_Layer>();
             
-            //TODO nicht mit namen sonder aus Verzeichnis alle Unterverzeichnisse
+            //TODO nicht mit namen sondern aus Verzeichnis alle Unterverzeichnisse
             for (int i = 0; i < LayerNames.Length; i++)
             {
                 var tLayer = new dmt_Layer();
@@ -65,7 +65,7 @@ namespace DMT_Icon.DMT_Slice
         {
             DebugInputPoint = DebugCenter.position;
             var v = CalculateRelativePosition(DebugInputPoint);
-//            Debug.Log("activeLayer: "+activeLayer+"  v: "+ v.ToString());
+
             LayerList[activeLayer].updateSlices(v);
             
         }
@@ -75,6 +75,7 @@ namespace DMT_Icon.DMT_Slice
             if (_activeLayer<LayerList.Count )
             {
                 activeLayer = _activeLayer;
+                LayerList[activeLayer].ApplySettings();
                 Debug.Log("active Layer = "+activeLayer);
                 return true;
             }
@@ -95,26 +96,33 @@ namespace DMT_Icon.DMT_Slice
                 {
                     //Slice
                     case(Key.A): 
-                        Debug.Log("A");
+                        
+                        LayerList[activeLayer].ChangeActiveSlice(dmt_Slice.AXIS.AXIAL);
                         break;
                     case(Key.S): 
-                        Debug.Log("S");
+                        
+                        LayerList[activeLayer].ChangeActiveSlice(dmt_Slice.AXIS.SAG);
                         break;
                     case(Key.C): 
-                        Debug.Log("C");
+                        
+                        LayerList[activeLayer].ChangeActiveSlice(dmt_Slice.AXIS.COR);
                         break;
                     //operator
                     case(Key.F): 
-                        Debug.Log("F");
+                       
+                        LayerList[activeLayer].ChangeSettings(_flip:true);
                         break;
                     case(Key.O): 
-                        Debug.Log("O");
+                       
+                        LayerList[activeLayer].ChangeSettings(_order:true);
                         break;
                     case(Key.R): 
-                        Debug.Log("R");
+                        
+                        LayerList[activeLayer].ChangeSettings(_rot:true);
                         break;
                     case(Key.UpArrow):
                         Debug.Log("a...active Layer = "+activeLayer);
+                        
                         if (!setActiveLayer(activeLayer + 1))
                         {
                             Debug.Log("b...active Layer = "+activeLayer);
