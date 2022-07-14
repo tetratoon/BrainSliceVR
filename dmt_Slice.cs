@@ -16,7 +16,7 @@ namespace DMT_Icon.DMT_Slice
         private int steps = 0;
        
         
-
+        
 
         public AXIS axis;
 
